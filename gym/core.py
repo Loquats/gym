@@ -69,7 +69,7 @@ class Env(object):
 
     # Override in ALL subclasses
     def _step(self, action): raise NotImplementedError
-    def _reset(self): raise NotImplementedError
+    def _reset(self, state=None): raise NotImplementedError
     def _render(self, mode='human', close=False): return
     def _seed(self, seed=None): return []
 
@@ -98,13 +98,13 @@ class Env(object):
         """
         return self._step(action)
 
-    def reset(self):
+    def reset(self, state=None):
         """Resets the state of the environment and returns an initial observation.
 
         Returns: observation (object): the initial observation of the
             space.
         """
-        return self._reset()
+        return self._reset(state)
 
     def render(self, mode='human', close=False):
         """Renders the environment.
@@ -278,8 +278,8 @@ class Wrapper(Env):
     def _step(self, action):
         return self.env.step(action)
 
-    def _reset(self):
-        return self.env.reset()
+    def _reset(self, state=None):
+        return self.env.reset(state)
 
     def _render(self, mode='human', close=False):
         return self.env.render(mode, close)

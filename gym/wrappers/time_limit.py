@@ -43,7 +43,7 @@ class TimeLimit(Wrapper):
 
         return observation, reward, done, info
 
-    def _reset(self):
+    def _reset(self, state=None):
         self._episode_started_at = time.time()
         self._elapsed_steps = 0
-        return self.env.reset()
+        return self.env.reset(state)

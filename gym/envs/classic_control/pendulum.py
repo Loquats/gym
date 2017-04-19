@@ -45,9 +45,12 @@ class PendulumEnv(gym.Env):
         self.state = np.array([newth, newthdot])
         return self._get_obs(), -costs, False, {}
 
-    def _reset(self):
-        high = np.array([np.pi, 1])
-        self.state = self.np_random.uniform(low=-high, high=high)
+    def _reset(self, state=None):
+        if state:
+            self.state = state
+        else:
+            high = np.array([np.pi, 1])
+            self.state = self.np_random.uniform(low=-high, high=high)
         self.last_u = None
         return self._get_obs()
 
